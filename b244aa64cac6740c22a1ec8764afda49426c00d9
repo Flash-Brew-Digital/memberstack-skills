@@ -1,0 +1,23 @@
+skills/memberstack-cli/SKILL.md
+  a64fd20401e3476f 64,66,111-112,121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.4",
+  "base_commit_sha": "b244aa64cac6740c22a1ec8764afda49426c00d9",
+  "prompts": {
+    "a64fd20401e3476f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7ec2c6db-5029-4055-9749-0dc5c70f810b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Ben Sabic <bensabic@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 5,
+      "total_deletions": 2,
+      "accepted_lines": 5,
+      "overriden_lines": 0
+    }
+  }
+}
