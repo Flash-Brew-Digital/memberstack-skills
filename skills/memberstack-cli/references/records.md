@@ -1,16 +1,16 @@
 ---
-name: "Records Commands"
-description: "Reference for working with Memberstack table records, including CRUD, query, filtering, count, import/export, and bulk updates."
-tags: [records, create, update, delete, query, find, count, import, export, bulk-update, tables]
+title: Records
+description: Manage data table records in your Memberstack application.
+tags: ["memberstack","records","tables","data","import","export"]
 ---
 
+> **Important:** Always use the `scripts/run_memberstack.py` wrapper instead of calling `memberstack-cli` directly. See [SKILL.md](../SKILL.md#running-commands) for details.
+
 ```
-memberstack records <subcommand>
+memberstack records <subcommand> [options]
 ```
 
-Requires OAuth authentication (`memberstack auth login`).
-
-records create [#records-create]
+## records create
 
 Create a new record in a data table.
 
@@ -18,25 +18,25 @@ Create a new record in a data table.
 memberstack records create <table_key> --data <key=value> [options]
 ```
 
-Arguments [#arguments]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Options [#options]
+### Options
 
-| Option               | Description                    | Required |
-| -------------------- | ------------------------------ | -------- |
-| `--data <key=value>` | Record field data (repeatable) | Yes      |
+| Option | Description | Required |
+|---|---|---|
+| `--data <key=value>` | Record field data (repeatable) | Yes |
 
-Example [#example]
+### Example
 
 ```bash
 memberstack records create products --data name=Widget --data price=29.99
 ```
 
-records update [#records-update]
+## records update
 
 Update a record in a data table.
 
@@ -44,26 +44,26 @@ Update a record in a data table.
 memberstack records update <table_key> <record_id> --data <key=value> [options]
 ```
 
-Arguments [#arguments-1]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
-| `record_id` | Record ID       | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
+| `record_id` | Record ID | Yes |
 
-Options [#options-1]
+### Options
 
-| Option               | Description                    | Required |
-| -------------------- | ------------------------------ | -------- |
-| `--data <key=value>` | Record field data (repeatable) | Yes      |
+| Option | Description | Required |
+|---|---|---|
+| `--data <key=value>` | Record field data (repeatable) | Yes |
 
-Example [#example-1]
+### Example
 
 ```bash
 memberstack records update products rec_abc123 --data price=39.99 --data status=active
 ```
 
-records delete [#records-delete]
+## records delete
 
 Delete a record from a data table.
 
@@ -71,20 +71,20 @@ Delete a record from a data table.
 memberstack records delete <table_key> <record_id>
 ```
 
-Arguments [#arguments-2]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
-| `record_id` | Record ID       | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
+| `record_id` | Record ID | Yes |
 
-Example [#example-2]
+### Example
 
 ```bash
 memberstack records delete products rec_abc123
 ```
 
-records query [#records-query]
+## records query
 
 Query records using a JSON query body.
 
@@ -92,19 +92,19 @@ Query records using a JSON query body.
 memberstack records query <table_key> --query <json>
 ```
 
-Arguments [#arguments-3]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Options [#options-2]
+### Options
 
-| Option           | Description                 | Required |
-| ---------------- | --------------------------- | -------- |
-| `--query <json>` | Query body as a JSON string | Yes      |
+| Option | Description | Required |
+|---|---|---|
+| `--query <json>` | Query body as a JSON string | Yes |
 
-Examples [#examples]
+### Examples
 
 ```bash
 # Fetch first 10 records
@@ -117,7 +117,7 @@ memberstack records query products --query '{"filter":{"fieldFilters":{"status":
 memberstack records query products --query '{"pagination":{"first":10,"after":"cursor_abc"}}'
 ```
 
-records count [#records-count]
+## records count
 
 Count records in a data table.
 
@@ -125,20 +125,20 @@ Count records in a data table.
 memberstack records count <table_key>
 ```
 
-Arguments [#arguments-4]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Example [#example-3]
+### Example
 
 ```bash
 $ memberstack records count products
 Total records: 256
 ```
 
-records find [#records-find]
+## records find
 
 Find records with a friendly filter syntax.
 
@@ -146,24 +146,24 @@ Find records with a friendly filter syntax.
 memberstack records find <table_key> [options]
 ```
 
-Arguments [#arguments-5]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Options [#options-3]
+### Options
 
-| Option             | Description                                          |
-| ------------------ | ---------------------------------------------------- |
+| Option | Description |
+|---|---|
 | `--where <clause>` | Filter clause: `"field operator value"` (repeatable) |
-| `--take <n>`       | Limit number of results                              |
+| `--take <n>` | Limit number of results |
 
-Supported Operators [#supported-operators]
+### Supported Operators
 
 `equals`, `not`, `in`, `notIn`, `lt`, `lte`, `gt`, `gte`, `contains`, `startsWith`, `endsWith`
 
-Examples [#examples-1]
+### Examples
 
 ```bash
 memberstack records find products --where "status equals active" --take 10
@@ -171,7 +171,7 @@ memberstack records find products --where "price gte 20" --where "category equal
 memberstack records find products --where "name contains widget" --take 20
 ```
 
-records export [#records-export]
+## records export
 
 Export all records from a data table.
 
@@ -179,20 +179,20 @@ Export all records from a data table.
 memberstack records export <table_key> [options]
 ```
 
-Arguments [#arguments-6]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Options [#options-4]
+### Options
 
-| Option              | Description                    | Default                             |
-| ------------------- | ------------------------------ | ----------------------------------- |
-| `--format <format>` | Output format: `csv` or `json` | `json`                              |
-| `--output <path>`   | Output file path               | `records-{tableKey}.json` or `.csv` |
+| Option | Description | Default |
+|---|---|---|
+| `--format <format>` | Output format: `csv` or `json` | `json` |
+| `--output <path>` | Output file path | `records-{tableKey}.json` or `.csv` |
 
-Examples [#examples-2]
+### Examples
 
 ```bash
 memberstack records export products
@@ -201,7 +201,7 @@ memberstack records export products --format csv --output products.csv
 
 Exported CSV files flatten nested fields with `data.*` prefixes.
 
-records import [#records-import]
+## records import
 
 Import records into a data table from a file.
 
@@ -209,30 +209,30 @@ Import records into a data table from a file.
 memberstack records import <table_key> --file <path>
 ```
 
-Arguments [#arguments-7]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Options [#options-5]
+### Options
 
-| Option          | Description                   | Required |
-| --------------- | ----------------------------- | -------- |
-| `--file <path>` | Input file path (CSV or JSON) | Yes      |
+| Option | Description | Required |
+|---|---|---|
+| `--file <path>` | Input file path (CSV or JSON) | Yes |
 
-File Format [#file-format]
+### File Format
 
 CSV column headers can optionally use the `data.*` prefix. Both `name` and `data.name` are accepted.
 
-Examples [#examples-3]
+### Examples
 
 ```bash
 memberstack records import products --file records.csv
 memberstack records import products --file records.json
 ```
 
-records bulk-update [#records-bulk-update]
+## records bulk-update
 
 Bulk update records from a CSV or JSON file.
 
@@ -240,27 +240,27 @@ Bulk update records from a CSV or JSON file.
 memberstack records bulk-update --file <path> [options]
 ```
 
-Options [#options-6]
+### Options
 
-| Option          | Description                           | Required |
-| --------------- | ------------------------------------- | -------- |
-| `--file <path>` | Input file with record updates        | Yes      |
-| `--dry-run`     | Preview changes without applying them | No       |
+| Option | Description | Required |
+|---|---|---|
+| `--file <path>` | Input file with record updates | Yes |
+| `--dry-run` | Preview changes without applying them | No |
 
-File Format [#file-format-1]
+### File Format
 
 **Required fields:** `id`
 
 **Optional fields:** `data.*` fields
 
-Examples [#examples-4]
+### Examples
 
 ```bash
 memberstack records bulk-update --file updates.csv
 memberstack records bulk-update --file updates.csv --dry-run
 ```
 
-records bulk-delete [#records-bulk-delete]
+## records bulk-delete
 
 Bulk delete records matching a filter.
 
@@ -268,22 +268,36 @@ Bulk delete records matching a filter.
 memberstack records bulk-delete <table_key> [options]
 ```
 
-Arguments [#arguments-8]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Options [#options-7]
+### Options
 
-| Option             | Description                                          |
-| ------------------ | ---------------------------------------------------- |
+| Option | Description |
+|---|---|
 | `--where <clause>` | Filter clause: `"field operator value"` (repeatable) |
-| `--dry-run`        | Preview deletions without applying them              |
+| `--dry-run` | Preview deletions without applying them |
 
-Examples [#examples-5]
+### Examples
 
 ```bash
 memberstack records bulk-delete products --where "status equals archived"
 memberstack records bulk-delete products --where "price lt 5" --dry-run
 ```
+
+## FAQ
+
+Q: What is the difference between records query and records find?
+A: The query command accepts a raw JSON query body for full control over filters and pagination. The find command provides a friendlier syntax using --where clauses with operators like equals, contains, and gte. Use find for simple lookups and query for advanced filtering.
+
+Q: Can I preview bulk changes before applying them?
+A: Yes. Both records bulk-update and records bulk-delete support a --dry-run flag. This shows exactly what would change without modifying any data, so you can verify the operation before committing.
+
+Q: What file formats are supported for import and export?
+A: Records can be imported and exported in both CSV and JSON formats. CSV files flatten nested data fields with a data.* prefix. When importing, both name and data.name column headers are accepted.
+
+Q: How do I filter records using the find command?
+A: Use --where with a clause in the format "field operator value". Supported operators include equals, not, in, notIn, lt, lte, gt, gte, contains, startsWith, and endsWith. You can chain multiple --where flags to combine filters.

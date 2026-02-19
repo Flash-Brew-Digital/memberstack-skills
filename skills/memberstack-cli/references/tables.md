@@ -1,16 +1,16 @@
 ---
-name: "Tables Commands"
-description: "Reference for managing Memberstack data tables, including list, get, describe, create, update, and delete operations."
-tags: [tables, list, get, describe, create, update, delete, schema, access-rules]
+title: Tables
+description: Manage data tables in your Memberstack application.
+tags: ["memberstack","tables","data","schema","cli"]
 ---
 
+> **Important:** Always use the `scripts/run_memberstack.py` wrapper instead of calling `memberstack-cli` directly. See [SKILL.md](../SKILL.md#running-commands) for details.
+
 ```
-memberstack tables <subcommand>
+memberstack tables <subcommand> [options]
 ```
 
-Requires OAuth authentication (`memberstack auth login`).
-
-tables list [#tables-list]
+## tables list
 
 List all data tables.
 
@@ -18,7 +18,7 @@ List all data tables.
 memberstack tables list
 ```
 
-Example [#example]
+### Example
 
 ```bash
 $ memberstack tables list
@@ -32,7 +32,7 @@ $ memberstack tables list
 ]
 ```
 
-tables get [#tables-get]
+## tables get
 
 Get a data table by key or ID.
 
@@ -40,20 +40,20 @@ Get a data table by key or ID.
 memberstack tables get <table_key>
 ```
 
-Arguments [#arguments]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Examples [#examples]
+### Examples
 
 ```bash
 memberstack tables get products
 memberstack tables get tbl_abc123
 ```
 
-tables describe [#tables-describe]
+## tables describe
 
 Show detailed schema information for a table.
 
@@ -61,17 +61,17 @@ Show detailed schema information for a table.
 memberstack tables describe <table_key>
 ```
 
-Arguments [#arguments-1]
+### Arguments
 
-| Argument    | Description     | Required |
-| ----------- | --------------- | -------- |
-| `table_key` | Table key or ID | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `table_key` | Table key or ID | Yes |
 
-Description [#description]
+### Description
 
 Displays the table name, key, ID, access rules (create, read, update, delete), and all fields with their type, required status, and references.
 
-Example [#example-1]
+### Example
 
 ```bash
 $ memberstack tables describe products
@@ -92,7 +92,7 @@ Fields:
   owner       Relation  → members
 ```
 
-tables create [#tables-create]
+## tables create
 
 Create a new data table.
 
@@ -100,27 +100,27 @@ Create a new data table.
 memberstack tables create [options]
 ```
 
-Options [#options]
+### Options
 
-| Option                 | Description                      | Required |
-| ---------------------- | -------------------------------- | -------- |
-| `--name <name>`        | Table name                       | Yes      |
-| `--key <key>`          | Table key (unique identifier)    | Yes      |
-| `--create-rule <rule>` | Access rule for creating records | No       |
-| `--read-rule <rule>`   | Access rule for reading records  | No       |
-| `--update-rule <rule>` | Access rule for updating records | No       |
-| `--delete-rule <rule>` | Access rule for deleting records | No       |
+| Option | Description | Required |
+|---|---|---|
+| `--name <name>` | Table name | Yes |
+| `--key <key>` | Table key (unique identifier) | Yes |
+| `--create-rule <rule>` | Access rule for creating records | No |
+| `--read-rule <rule>` | Access rule for reading records | No |
+| `--update-rule <rule>` | Access rule for updating records | No |
+| `--delete-rule <rule>` | Access rule for deleting records | No |
 
 Access rule values: `PUBLIC`, `AUTHENTICATED`, `AUTHENTICATED_OWN`, `ADMIN_ONLY`
 
-Examples [#examples-1]
+### Examples
 
 ```bash
 memberstack tables create --name "Products" --key products
 memberstack tables create --name "Orders" --key orders --create-rule AUTHENTICATED --read-rule PUBLIC
 ```
 
-tables update [#tables-update]
+## tables update
 
 Update a data table.
 
@@ -128,32 +128,32 @@ Update a data table.
 memberstack tables update <id> [options]
 ```
 
-Arguments [#arguments-2]
+### Arguments
 
 | Argument | Description | Required |
-| -------- | ----------- | -------- |
-| `id`     | Table ID    | Yes      |
+|---|---|---|
+| `id` | Table ID | Yes |
 
-Options [#options-1]
+### Options
 
-| Option                 | Description                      |
-| ---------------------- | -------------------------------- |
-| `--name <name>`        | Table name                       |
+| Option | Description |
+|---|---|
+| `--name <name>` | Table name |
 | `--create-rule <rule>` | Access rule for creating records |
-| `--read-rule <rule>`   | Access rule for reading records  |
+| `--read-rule <rule>` | Access rule for reading records |
 | `--update-rule <rule>` | Access rule for updating records |
 | `--delete-rule <rule>` | Access rule for deleting records |
 
 Access rule values: `PUBLIC`, `AUTHENTICATED`, `AUTHENTICATED_OWN`, `ADMIN_ONLY`
 
-Examples [#examples-2]
+### Examples
 
 ```bash
 memberstack tables update tbl_abc123 --name "Updated Products"
 memberstack tables update tbl_abc123 --delete-rule ADMIN_ONLY --read-rule PUBLIC
 ```
 
-tables delete [#tables-delete]
+## tables delete
 
 Delete a data table.
 
@@ -161,14 +161,25 @@ Delete a data table.
 memberstack tables delete <id>
 ```
 
-Arguments [#arguments-3]
+### Arguments
 
 | Argument | Description | Required |
-| -------- | ----------- | -------- |
-| `id`     | Table ID    | Yes      |
+|---|---|---|
+| `id` | Table ID | Yes |
 
-Example [#example-2]
+### Example
 
 ```bash
 memberstack tables delete tbl_abc123
 ```
+
+## FAQ
+
+Q: How do I see the schema of a data table?
+A: Run memberstack tables describe followed by the table key. This displays the table name, key, ID, access rules for CRUD operations, and all fields with their type, required status, and references.
+
+Q: What access rules can I set on a table?
+A: Tables support four access rule levels for create, read, update, and delete operations. PUBLIC allows anyone, AUTHENTICATED requires login, AUTHENTICATED_OWN restricts access to a member's own records, and ADMIN_ONLY limits access to admins.
+
+Q: Can I reference a table by its key instead of its ID?
+A: Yes. Most table commands accept either the table key (e.g., products) or the table ID (e.g., tbl_abc123). Using keys is shorter and easier to remember.

@@ -1,6 +1,6 @@
 # Security Policy
 
-Flash Brew Digital takes security seriously and is committed to maintaining the highest standards to protect our users.
+We take security seriously and are committed to maintaining the highest standards to protect users.
 
 ## Reporting Security Issues
 
@@ -10,6 +10,4 @@ If you believe you have found a security vulnerability in this repository, we en
 
 We will investigate all legitimate reports and do our best to quickly fix the problem.
 
-Email team[at]flashbrew[dot]digital to disclose any security vulnerabilities.
-
-https://flashbrew.digital/contact
+Email hello[dot]flashbrew[dot]digital to disclose any security vulnerabilities.

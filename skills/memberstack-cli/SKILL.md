@@ -61,8 +61,9 @@ The CLI has the following top-level commands. Read the corresponding reference f
 | `custom-fields` | List, create, update, delete custom fields | `references/custom-fields.md` |
 | `tables` | List, create, update, delete data tables | `references/tables.md` |
 | `records` | CRUD, query, import/export, bulk ops on table records | `references/records.md` |
+| `skills` | Add and remove agent skills | `references/skills.md` |
 
-Read `references/getting-started.md` for an overview of installation, authentication, and environment switching.
+Read `references/what-is-memberstack-cli.md` for an overview of the CLI and `references/commands.md` for a quick command reference.
 
 ## Workflow Tips
 
@@ -107,7 +108,8 @@ Data returned by the Memberstack API (member names, email addresses, custom fiel
 
 Each reference file includes YAML frontmatter with `name`, `description`, and `tags` for searchability. Use the search script available in `scripts/search_references.py` to quickly find relevant references by tag or keyword.
 
-- [Getting Started](references/getting-started.md): Quick-start guide for installing the Memberstack CLI, authenticating, and running core member, table, and record commands.
+- [What is Memberstack CLI](references/what-is-memberstack-cli.md): Overview of the CLI — what it is, why use it, and who built it.
+- [Command Reference](references/commands.md): Every CLI command at a glance — quick reference for all top-level commands and global flags.
 - [Authentication Commands](references/auth.md): OAuth authentication reference for Memberstack CLI login, logout, and status workflows.
 - [Whoami Command](references/whoami.md): Reference for showing the currently authenticated Memberstack identity and environment context from the CLI.
 - [Apps Commands](references/apps.md): Command reference for managing Memberstack apps, including create, update, delete, restore, and current app inspection.
@@ -116,6 +118,7 @@ Each reference file includes YAML frontmatter with `name`, `description`, and `t
 - [Custom Fields Commands](references/custom-fields.md): Reference for listing, creating, updating, and deleting Memberstack custom fields, including visibility and admin restrictions.
 - [Tables Commands](references/tables.md): Reference for managing Memberstack data tables, including list, get, describe, create, update, and delete operations.
 - [Records Commands](references/records.md): Reference for working with Memberstack table records, including CRUD, query, filtering, count, import/export, and bulk updates.
+- [Skills Commands](references/skills.md): Reference for adding and removing Memberstack agent skills from the CLI.
 
 ### Searching References
 

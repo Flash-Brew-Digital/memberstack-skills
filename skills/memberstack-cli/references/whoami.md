@@ -1,28 +1,40 @@
 ---
-name: "Whoami Command"
-description: "Reference for showing the currently authenticated Memberstack identity and environment context from the CLI."
-tags: [whoami, identity, auth, environment, sandbox, live, json]
+title: Who Am I
+description: Show your current authenticated identity.
+tags: ["memberstack","whoami","oauth","identity","cli"]
 ---
+
+> **Important:** Always use the `scripts/run_memberstack.py` wrapper instead of calling `memberstack-cli` directly. See [SKILL.md](../SKILL.md#running-commands) for details.
+
+```
+memberstack whoami
+```
+
+## whoami
+
+Show the currently authenticated Memberstack user.
 
 ```bash
 memberstack whoami
 ```
 
-Run `memberstack auth login` first if you are not authenticated yet.
+### Description
 
-By default the CLI targets sandbox. Add `--live` for live mode, and `--json` for raw JSON output.
+Displays your currently authenticated email, app ID, and active environment (sandbox or live). Run `memberstack auth login` first if you are not authenticated yet.
 
-Example [#example]
+### Example
 
 ```bash
-$ memberstack auth login
 $ memberstack whoami
 Email:        user@example.com
 App:          app_abc123
 Environment:  sandbox
-
-$ memberstack whoami --live
-Email:        user@example.com
-App:          app_live456
-Environment:  live
 ```
+
+## FAQ
+
+Q: What does the whoami command show?
+A: The whoami command displays your currently authenticated email, app ID, and active environment. It's a quick way to confirm which account and environment you're working with.
+
+Q: What should I do if whoami shows an error?
+A: If whoami returns an authentication error, your session may have expired. Run memberstack auth login to re-authenticate, then try whoami again.

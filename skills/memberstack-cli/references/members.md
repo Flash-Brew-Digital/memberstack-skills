@@ -1,16 +1,16 @@
 ---
-name: "Members Commands"
-description: "Comprehensive command reference for Memberstack member management, including CRUD, plans, search, stats, and bulk workflows."
-tags: [members, list, get, create, update, delete, plans, find, stats, import, export, bulk]
+title: Members
+description: Manage members in your Memberstack application.
+tags: ["memberstack","members","plans","import","export","cli"]
 ---
 
+> **Important:** Always use the `scripts/run_memberstack.py` wrapper instead of calling `memberstack-cli` directly. See [SKILL.md](../SKILL.md#running-commands) for details.
+
 ```
-memberstack members <subcommand>
+memberstack members <subcommand> [options]
 ```
 
-Requires OAuth authentication (`memberstack auth login`).
-
-members list [#members-list]
+## members list
 
 List members with optional pagination and sorting.
 
@@ -18,16 +18,16 @@ List members with optional pagination and sorting.
 memberstack members list [options]
 ```
 
-Options [#options]
+### Options
 
-| Option             | Description                                   | Default |
-| ------------------ | --------------------------------------------- | ------- |
-| `--after <cursor>` | Pagination cursor (from previous `endCursor`) | —       |
-| `--order <order>`  | Sort order: `ASC` or `DESC`                   | `ASC`   |
-| `--limit <number>` | Maximum members to return (max 200)           | `50`    |
-| `--all`            | Auto-paginate and fetch all members           | —       |
+| Option | Description | Default |
+|---|---|---|
+| `--after <cursor>` | Pagination cursor (from previous `endCursor`) | — |
+| `--order <order>` | Sort order: `ASC` or `DESC` | `ASC` |
+| `--limit <number>` | Maximum members to return (max 200) | `50` |
+| `--all` | Auto-paginate and fetch all members | — |
 
-Examples [#examples]
+### Examples
 
 ```bash
 memberstack members list
@@ -37,7 +37,7 @@ memberstack members list --all
 
 Results are written to `members.json` in the current directory.
 
-members get [#members-get]
+## members get
 
 Get a member by ID or email.
 
@@ -45,20 +45,20 @@ Get a member by ID or email.
 memberstack members get <id_or_email>
 ```
 
-Arguments [#arguments]
+### Arguments
 
-| Argument      | Description                            | Required |
-| ------------- | -------------------------------------- | -------- |
-| `id_or_email` | Member ID (`mem_...`) or email address | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `id_or_email` | Member ID (`mem_...`) or email address | Yes |
 
-Examples [#examples-1]
+### Examples
 
 ```bash
 memberstack members get mem_abc123
 memberstack members get user@example.com
 ```
 
-members create [#members-create]
+## members create
 
 Create a new member.
 
@@ -66,18 +66,18 @@ Create a new member.
 memberstack members create [options]
 ```
 
-Options [#options-1]
+### Options
 
-| Option                        | Description                       | Required |
-| ----------------------------- | --------------------------------- | -------- |
-| `--email <email>`             | Member email address              | Yes      |
-| `--password <password>`       | Member password                   | Yes      |
-| `--plans <planId>`            | Plan ID to connect (repeatable)   | No       |
-| `--custom-fields <key=value>` | Custom field value (repeatable)   | No       |
-| `--meta-data <key=value>`     | Metadata field value (repeatable) | No       |
-| `--login-redirect <url>`      | Login redirect URL                | No       |
+| Option | Description | Required |
+|---|---|---|
+| `--email <email>` | Member email address | Yes |
+| `--password <password>` | Member password | Yes |
+| `--plans <planId>` | Plan ID to connect (repeatable) | No |
+| `--custom-fields <key=value>` | Custom field value (repeatable) | No |
+| `--meta-data <key=value>` | Metadata field value (repeatable) | No |
+| `--login-redirect <url>` | Login redirect URL | No |
 
-Examples [#examples-2]
+### Examples
 
 ```bash
 memberstack members create --email user@example.com --password secure123
@@ -90,7 +90,7 @@ memberstack members create \
   --meta-data ref=partner
 ```
 
-members update [#members-update]
+## members update
 
 Update an existing member.
 
@@ -98,30 +98,30 @@ Update an existing member.
 memberstack members update <id> [options]
 ```
 
-Arguments [#arguments-1]
+### Arguments
 
-| Argument | Description           | Required |
-| -------- | --------------------- | -------- |
-| `id`     | Member ID (`mem_...`) | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `id` | Member ID (`mem_...`) | Yes |
 
-Options [#options-2]
+### Options
 
-| Option                        | Description                       |
-| ----------------------------- | --------------------------------- |
-| `--email <email>`             | Update email address              |
-| `--custom-fields <key=value>` | Custom field value (repeatable)   |
-| `--meta-data <key=value>`     | Metadata field value (repeatable) |
-| `--json <json>`               | Additional JSON data as a string  |
-| `--login-redirect <url>`      | Login redirect URL                |
+| Option | Description |
+|---|---|
+| `--email <email>` | Update email address |
+| `--custom-fields <key=value>` | Custom field value (repeatable) |
+| `--meta-data <key=value>` | Metadata field value (repeatable) |
+| `--json <json>` | Additional JSON data as a string |
+| `--login-redirect <url>` | Login redirect URL |
 
-Examples [#examples-3]
+### Examples
 
 ```bash
 memberstack members update mem_abc123 --email newemail@example.com
 memberstack members update mem_abc123 --custom-fields tier=gold
 ```
 
-members delete [#members-delete]
+## members delete
 
 Delete a member.
 
@@ -129,19 +129,19 @@ Delete a member.
 memberstack members delete <id>
 ```
 
-Arguments [#arguments-2]
+### Arguments
 
-| Argument | Description           | Required |
-| -------- | --------------------- | -------- |
-| `id`     | Member ID (`mem_...`) | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `id` | Member ID (`mem_...`) | Yes |
 
-Examples [#examples-4]
+### Examples
 
 ```bash
 memberstack members delete mem_abc123
 ```
 
-members add-plan [#members-add-plan]
+## members add-plan
 
 Add a free plan to a member.
 
@@ -149,25 +149,25 @@ Add a free plan to a member.
 memberstack members add-plan <id> --plan-id <planId>
 ```
 
-Arguments [#arguments-3]
+### Arguments
 
-| Argument | Description           | Required |
-| -------- | --------------------- | -------- |
-| `id`     | Member ID (`mem_...`) | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `id` | Member ID (`mem_...`) | Yes |
 
-Options [#options-3]
+### Options
 
-| Option               | Description                | Required |
-| -------------------- | -------------------------- | -------- |
-| `--plan-id <planId>` | Plan ID to add (`pln_...`) | Yes      |
+| Option | Description | Required |
+|---|---|---|
+| `--plan-id <planId>` | Plan ID to add (`pln_...`) | Yes |
 
-Example [#example]
+### Example
 
 ```bash
 memberstack members add-plan mem_abc123 --plan-id pln_xyz789
 ```
 
-members remove-plan [#members-remove-plan]
+## members remove-plan
 
 Remove a free plan from a member.
 
@@ -175,25 +175,25 @@ Remove a free plan from a member.
 memberstack members remove-plan <id> --plan-id <planId>
 ```
 
-Arguments [#arguments-4]
+### Arguments
 
-| Argument | Description           | Required |
-| -------- | --------------------- | -------- |
-| `id`     | Member ID (`mem_...`) | Yes      |
+| Argument | Description | Required |
+|---|---|---|
+| `id` | Member ID (`mem_...`) | Yes |
 
-Options [#options-4]
+### Options
 
-| Option               | Description                   | Required |
-| -------------------- | ----------------------------- | -------- |
-| `--plan-id <planId>` | Plan ID to remove (`pln_...`) | Yes      |
+| Option | Description | Required |
+|---|---|---|
+| `--plan-id <planId>` | Plan ID to remove (`pln_...`) | Yes |
 
-Example [#example-1]
+### Example
 
 ```bash
 memberstack members remove-plan mem_abc123 --plan-id pln_xyz789
 ```
 
-members count [#members-count]
+## members count
 
 Show total member count.
 
@@ -201,14 +201,14 @@ Show total member count.
 memberstack members count
 ```
 
-Example [#example-2]
+### Example
 
 ```bash
 $ memberstack members count
 Total members: 1,234
 ```
 
-members find [#members-find]
+## members find
 
 Find members by custom field values or plan.
 
@@ -216,21 +216,21 @@ Find members by custom field values or plan.
 memberstack members find [options]
 ```
 
-Options [#options-5]
+### Options
 
-| Option                | Description                         |
-| --------------------- | ----------------------------------- |
+| Option | Description |
+|---|---|
 | `--field <key=value>` | Filter by custom field (repeatable) |
-| `--plan <planId>`     | Filter by plan ID                   |
+| `--plan <planId>` | Filter by plan ID |
 
-Examples [#examples-5]
+### Examples
 
 ```bash
 memberstack members find --plan pln_abc123
 memberstack members find --field tier=premium --field status=active
 ```
 
-members stats [#members-stats]
+## members stats
 
 Show member statistics.
 
@@ -238,11 +238,11 @@ Show member statistics.
 memberstack members stats
 ```
 
-Description [#description]
+### Description
 
 Displays an overview of member activity including total count, active vs inactive members, recent signups, and a breakdown by plan.
 
-Example [#example-3]
+### Example
 
 ```bash
 $ memberstack members stats
@@ -260,7 +260,7 @@ Members by Plan:
   No Plan:             34
 ```
 
-members export [#members-export]
+## members export
 
 Export all members to CSV or JSON.
 
@@ -268,14 +268,14 @@ Export all members to CSV or JSON.
 memberstack members export [options]
 ```
 
-Options [#options-6]
+### Options
 
-| Option              | Description                    | Default                         |
-| ------------------- | ------------------------------ | ------------------------------- |
-| `--format <format>` | Output format: `csv` or `json` | `json`                          |
-| `--output <path>`   | Output file path               | `members.json` or `members.csv` |
+| Option | Description | Default |
+|---|---|---|
+| `--format <format>` | Output format: `csv` or `json` | `json` |
+| `--output <path>` | Output file path | `members.json` or `members.csv` |
 
-Examples [#examples-6]
+### Examples
 
 ```bash
 memberstack members export
@@ -284,7 +284,7 @@ memberstack members export --format csv --output members-backup.csv
 
 Exported CSV files flatten nested fields with `customFields.*` and `metaData.*` prefixes.
 
-members import [#members-import]
+## members import
 
 Import members from a CSV or JSON file.
 
@@ -292,26 +292,26 @@ Import members from a CSV or JSON file.
 memberstack members import --file <path>
 ```
 
-Options [#options-7]
+### Options
 
-| Option          | Description                   | Required |
-| --------------- | ----------------------------- | -------- |
-| `--file <path>` | Input file path (CSV or JSON) | Yes      |
+| Option | Description | Required |
+|---|---|---|
+| `--file <path>` | Input file path (CSV or JSON) | Yes |
 
-File Format [#file-format]
+### File Format
 
 **Required fields:** `email`, `password`
 
 **Optional fields:** `plans` (comma-separated plan IDs), `loginRedirect`, `customFields.*`, `metaData.*`
 
-Examples [#examples-7]
+### Examples
 
 ```bash
 memberstack members import --file members.csv
 memberstack members import --file members.json
 ```
 
-members bulk-update [#members-bulk-update]
+## members bulk-update
 
 Bulk update members from a CSV or JSON file.
 
@@ -319,27 +319,27 @@ Bulk update members from a CSV or JSON file.
 memberstack members bulk-update --file <path> [options]
 ```
 
-Options [#options-8]
+### Options
 
-| Option          | Description                           | Required |
-| --------------- | ------------------------------------- | -------- |
-| `--file <path>` | Input file with member updates        | Yes      |
-| `--dry-run`     | Preview changes without applying them | No       |
+| Option | Description | Required |
+|---|---|---|
+| `--file <path>` | Input file with member updates | Yes |
+| `--dry-run` | Preview changes without applying them | No |
 
-File Format [#file-format-1]
+### File Format
 
 **Required fields:** `id`
 
 **Optional fields:** `email`, `loginRedirect`, `customFields.*`, `metaData.*`
 
-Examples [#examples-8]
+### Examples
 
 ```bash
 memberstack members bulk-update --file updates.csv
 memberstack members bulk-update --file updates.csv --dry-run
 ```
 
-members bulk-add-plan [#members-bulk-add-plan]
+## members bulk-add-plan
 
 Add a plan to multiple members at once.
 
@@ -347,17 +347,31 @@ Add a plan to multiple members at once.
 memberstack members bulk-add-plan --plan <planId> --filter <filter> [options]
 ```
 
-Options [#options-9]
+### Options
 
-| Option              | Description                       | Required |
-| ------------------- | --------------------------------- | -------- |
-| `--plan <planId>`   | Plan ID to add (`pln_...`)        | Yes      |
-| `--filter <filter>` | Member filter: `no-plan` or `all` | Yes      |
-| `--dry-run`         | Preview without applying changes  | No       |
+| Option | Description | Required |
+|---|---|---|
+| `--plan <planId>` | Plan ID to add (`pln_...`) | Yes |
+| `--filter <filter>` | Member filter: `no-plan` or `all` | Yes |
+| `--dry-run` | Preview without applying changes | No |
 
-Examples [#examples-9]
+### Examples
 
 ```bash
 memberstack members bulk-add-plan --plan pln_abc123 --filter no-plan
 memberstack members bulk-add-plan --plan pln_abc123 --filter all --dry-run
 ```
+
+## FAQ
+
+Q: How do I export all my members?
+A: Run memberstack members export to export all members as JSON. Add --format csv for CSV output. You can specify a custom file path with --output, otherwise it defaults to members.json or members.csv in the current directory.
+
+Q: Can I bulk update members from a file?
+A: Yes. Use memberstack members bulk-update --file updates.csv to update members in bulk. Each row must include the member ID. Add --dry-run to preview changes before applying them.
+
+Q: How do I find members by custom field values?
+A: Use memberstack members find --field key=value to search by custom field. You can combine multiple field filters and also filter by plan ID with --plan.
+
+Q: What file format do I need for importing members?
+A: Import files (CSV or JSON) require email and password fields. Optional fields include plans (comma-separated plan IDs), loginRedirect, and any custom fields or metadata using the customFields.* and metaData.* prefixes.

@@ -1,16 +1,18 @@
 ---
-name: "Authentication Commands"
-description: "OAuth authentication reference for Memberstack CLI login, logout, and status workflows with local token handling details."
-tags: [auth, authentication, oauth, login, logout, status, tokens, pkce]
+title: Authentication
+description: Manage OAuth authentication with the CLI.
+tags: ["memberstack","oauth","authentication","auth","cli"]
 ---
 
+> **Important:** Always use the `scripts/run_memberstack.py` wrapper instead of calling `memberstack-cli` directly. See [SKILL.md](../SKILL.md#running-commands) for details.
+
 ```
-memberstack auth <subcommand>
+memberstack auth <subcommand> [options]
 ```
 
 The CLI supports OAuth authentication with your Memberstack account.
 
-auth login [#auth-login]
+## auth login
 
 Authenticate with Memberstack via the browser-based OAuth flow.
 
@@ -18,13 +20,13 @@ Authenticate with Memberstack via the browser-based OAuth flow.
 memberstack auth login
 ```
 
-Description [#description]
+### Description
 
-Opens your default browser to the Memberstack authorization page. After you grant permission, the CLI receives an authorization code and exchanges it for access and refresh tokens using the PKCE flow.
+Opens your default browser to the Memberstack authorization page.
 
-Tokens are stored locally at `~/.memberstack/auth.json` with secure file permissions. The access token is used for authenticated requests directly to the Memberstack API, your credentials are never sent to third-party services.
+Tokens are stored locally at `~/.memberstack/auth.json` with restricted file permissions. The access token is used for authenticated requests directly to the Memberstack API only, your credentials are never sent to third-party services.
 
-Example [#example]
+### Example
 
 ```bash
 $ memberstack auth login
@@ -32,7 +34,7 @@ Opening browser for authentication...
 ✔ Authentication successful
 ```
 
-auth logout [#auth-logout]
+## auth logout
 
 Remove stored authentication tokens.
 
@@ -40,18 +42,18 @@ Remove stored authentication tokens.
 memberstack auth logout
 ```
 
-Description [#description-1]
+### Description
 
 Revokes the current refresh token (best-effort) and deletes the local token file at `~/.memberstack/auth.json`.
 
-Example [#example-1]
+### Example
 
 ```bash
 $ memberstack auth logout
 ✔ Logged out successfully
 ```
 
-auth status [#auth-status]
+## auth status
 
 Show current authentication status.
 
@@ -59,11 +61,11 @@ Show current authentication status.
 memberstack auth status
 ```
 
-Description [#description-2]
+### Description
 
 Displays whether you are currently authenticated, your app ID, token expiration time, refresh token availability, and token validity.
 
-Example [#example-2]
+### Example
 
 ```bash
 $ memberstack auth status
@@ -74,3 +76,14 @@ Authentication Status
   Refresh Token:  Available
   Token Valid:    Yes
 ```
+
+## FAQ
+
+Q: How do I log in to the Memberstack CLI?
+A: Run memberstack auth login. This opens your browser to authenticate with Memberstack via OAuth. Once approved, tokens are stored locally and you can start running commands.
+
+Q: Where are my authentication tokens stored?
+A: Tokens are stored locally at ~/.memberstack/auth.json with restricted file permissions. Your credentials are used only for authenticated requests to the Memberstack API and are never sent to third-party services.
+
+Q: What do I do if my session expires?
+A: Run memberstack auth status to check your token status. If your access token has expired, the CLI will attempt to refresh it automatically using your refresh token. If that fails, run memberstack auth login again.

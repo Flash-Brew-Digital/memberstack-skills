@@ -1,16 +1,16 @@
 ---
-name: "Apps Commands"
-description: "Command reference for managing Memberstack apps, including create, update, delete, restore, and current app inspection."
-tags: [apps, current, create, update, delete, restore, stack, wordpress, settings]
+title: Apps
+description: Manage Memberstack apps.
+tags: ["memberstack","apps","settings","cli","oauth"]
 ---
 
+> **Important:** Always use the `scripts/run_memberstack.py` wrapper instead of calling `memberstack-cli` directly. See [SKILL.md](../SKILL.md#running-commands) for details.
+
 ```
-memberstack apps <subcommand>
+memberstack apps <subcommand> [options]
 ```
 
-Requires OAuth authentication (`memberstack auth login`).
-
-apps current [#apps-current]
+## apps current
 
 Show the current app.
 
@@ -18,7 +18,7 @@ Show the current app.
 memberstack apps current
 ```
 
-apps create [#apps-create]
+## apps create
 
 Create a new app.
 
@@ -26,22 +26,22 @@ Create a new app.
 memberstack apps create [options]
 ```
 
-Options [#options]
+### Options
 
-| Option                               | Description                                                                                                  |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `--name <name>`                      | App name                                                                                                     |
-| `--stack <stack>`                    | Tech stack: `REACT`, `WEBFLOW`, `VANILLA`, `WORDPRESS`                                                       |
+| Option | Description |
+|---|---|
+| `--name <name>` | App name |
+| `--stack <stack>` | Tech stack: `REACT`, `WEBFLOW`, `VANILLA`, `WORDPRESS` |
 | `--wordpress-page-builder <builder>` | WordPress page builder: `GUTENBERG`, `ELEMENTOR`, `DIVI`, `BEAVER_BUILDER`, `BRICKS`, `CORNERSTONE`, `OTHER` |
-| `--template-id <templateId>`         | Template ID to use                                                                                           |
+| `--template-id <templateId>` | Template ID to use |
 
-Example [#example]
+### Example
 
 ```bash
 memberstack apps create --name "My App" --stack REACT
 ```
 
-apps update [#apps-update]
+## apps update
 
 Update the current app.
 
@@ -49,36 +49,36 @@ Update the current app.
 memberstack apps update [options]
 ```
 
-Options [#options-1]
+### Options
 
-| Option                                  | Description                                            |
-| --------------------------------------- | ------------------------------------------------------ |
-| `--name <name>`                         | App name                                               |
-| `--stack <stack>`                       | Tech stack: `REACT`, `WEBFLOW`, `VANILLA`, `WORDPRESS` |
-| `--status <status>`                     | App status: `ACTIVE`, `DELETED`                        |
-| `--wordpress-page-builder <builder>`    | WordPress page builder                                 |
-| `--business-entity-name <name>`         | Business entity name                                   |
-| `--terms-of-service-url <url>`          | Terms of service URL                                   |
-| `--privacy-policy-url <url>`            | Privacy policy URL                                     |
-| `--prevent-disposable-emails`           | Prevent disposable emails                              |
-| `--no-prevent-disposable-emails`        | Allow disposable emails                                |
-| `--captcha-enabled`                     | Enable captcha                                         |
-| `--no-captcha-enabled`                  | Disable captcha                                        |
-| `--require-user-2fa`                    | Require user 2FA                                       |
-| `--no-require-user-2fa`                 | Disable required 2FA                                   |
-| `--disable-concurrent-logins`           | Disable concurrent logins                              |
-| `--no-disable-concurrent-logins`        | Allow concurrent logins                                |
-| `--member-session-duration-days <days>` | Member session duration in days                        |
-| `--allow-member-self-delete`            | Allow members to self-delete                           |
-| `--no-allow-member-self-delete`         | Prevent member self-deletion                           |
+| Option | Description |
+|---|---|
+| `--name <name>` | App name |
+| `--stack <stack>` | Tech stack: `REACT`, `WEBFLOW`, `VANILLA`, `WORDPRESS` |
+| `--status <status>` | App status: `ACTIVE`, `DELETED` |
+| `--wordpress-page-builder <builder>` | WordPress page builder |
+| `--business-entity-name <name>` | Business entity name |
+| `--terms-of-service-url <url>` | Terms of service URL |
+| `--privacy-policy-url <url>` | Privacy policy URL |
+| `--prevent-disposable-emails` | Prevent disposable emails |
+| `--no-prevent-disposable-emails` | Allow disposable emails |
+| `--captcha-enabled` | Enable captcha |
+| `--no-captcha-enabled` | Disable captcha |
+| `--require-user-2fa` | Require user 2FA |
+| `--no-require-user-2fa` | Disable required 2FA |
+| `--disable-concurrent-logins` | Disable concurrent logins |
+| `--no-disable-concurrent-logins` | Allow concurrent logins |
+| `--member-session-duration-days <days>` | Member session duration in days |
+| `--allow-member-self-delete` | Allow members to self-delete |
+| `--no-allow-member-self-delete` | Prevent member self-deletion |
 
-Example [#example-1]
+### Example
 
 ```bash
 memberstack apps update --name "Acme App" --captcha-enabled --require-user-2fa
 ```
 
-apps delete [#apps-delete]
+## apps delete
 
 Delete an app.
 
@@ -86,13 +86,13 @@ Delete an app.
 memberstack apps delete --app-id <appId>
 ```
 
-Options [#options-2]
+### Options
 
-| Option             | Description      |
-| ------------------ | ---------------- |
+| Option | Description |
+|---|---|
 | `--app-id <appId>` | App ID to delete |
 
-apps restore [#apps-restore]
+## apps restore
 
 Restore a deleted app.
 
@@ -100,8 +100,19 @@ Restore a deleted app.
 memberstack apps restore --app-id <appId>
 ```
 
-Options [#options-3]
+### Options
 
-| Option             | Description       |
-| ------------------ | ----------------- |
+| Option | Description |
+|---|---|
 | `--app-id <appId>` | App ID to restore |
+
+## FAQ
+
+Q: Can I manage multiple Memberstack apps from the CLI?
+A: Yes. You can create, update, delete, and restore apps using the apps command. Use apps current to see which app you're working with. To switch apps, log out and log back in with a different account.
+
+Q: What happens when I delete an app?
+A: Deleting an app with apps delete removes it from your account. If you need to recover a deleted app, use apps restore with the app ID to bring it back.
+
+Q: What tech stacks does Memberstack support?
+A: You can set your app's tech stack to React, Webflow, Vanilla, or WordPress when creating or updating an app. WordPress apps also support specifying a page builder such as Gutenberg, Elementor, Divi, Beaver Builder, Bricks, or Cornerstone.

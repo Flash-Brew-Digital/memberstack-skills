@@ -1,16 +1,16 @@
 ---
-name: "Plans Commands"
-description: "Reference for managing Memberstack plans, including listing, creation, updates, deletion, and plan priority ordering."
-tags: [plans, list, get, create, update, delete, order, priority, permissions, domains]
+title: Plans
+description: Manage Memberstack plans.
+tags: ["memberstack","plans","billing","subscriptions","cli"]
 ---
 
+> **Important:** Always use the `scripts/run_memberstack.py` wrapper instead of calling `memberstack-cli` directly. See [SKILL.md](../SKILL.md#running-commands) for details.
+
 ```
-memberstack plans <subcommand>
+memberstack plans <subcommand> [options]
 ```
 
-Requires OAuth authentication (`memberstack auth login`).
-
-plans list [#plans-list]
+## plans list
 
 List all plans.
 
@@ -18,14 +18,14 @@ List all plans.
 memberstack plans list [options]
 ```
 
-Options [#options]
+### Options
 
-| Option               | Description                                   |
-| -------------------- | --------------------------------------------- |
-| `--status <status>`  | Filter by status: `ALL`, `ACTIVE`, `INACTIVE` |
-| `--order-by <field>` | Order by field: `PRIORITY`, `CREATED_AT`      |
+| Option | Description |
+|---|---|
+| `--status <status>` | Filter by status: `ALL`, `ACTIVE`, `INACTIVE` |
+| `--order-by <field>` | Order by field: `PRIORITY`, `CREATED_AT` |
 
-plans get [#plans-get]
+## plans get
 
 Get a plan by ID.
 
@@ -33,13 +33,13 @@ Get a plan by ID.
 memberstack plans get <id>
 ```
 
-Arguments [#arguments]
+### Arguments
 
 | Argument | Description |
-| -------- | ----------- |
-| `id`     | Plan ID     |
+|---|---|
+| `id` | Plan ID |
 
-plans create [#plans-create]
+## plans create
 
 Create a new plan.
 
@@ -47,25 +47,25 @@ Create a new plan.
 memberstack plans create [options]
 ```
 
-Options [#options-1]
+### Options
 
-| Option                                    | Description                     |
-| ----------------------------------------- | ------------------------------- |
-| `--name <name>`                           | Plan name                       |
-| `--description <description>`             | Plan description                |
-| `--icon <icon>`                           | Plan icon                       |
-| `--is-paid`                               | Mark plan as paid               |
-| `--team-accounts-enabled`                 | Enable team accounts            |
+| Option | Description |
+|---|---|
+| `--name <name>` | Plan name |
+| `--description <description>` | Plan description |
+| `--icon <icon>` | Plan icon |
+| `--is-paid` | Mark plan as paid |
+| `--team-accounts-enabled` | Enable team accounts |
 | `--team-account-invite-signup-link <url>` | Team account invite signup link |
-| `--team-account-upgrade-link <url>`       | Team account upgrade link       |
+| `--team-account-upgrade-link <url>` | Team account upgrade link |
 
-Example [#example]
+### Example
 
 ```bash
 memberstack plans create --name "Pro" --description "Professional tier" --is-paid
 ```
 
-plans update [#plans-update]
+## plans update
 
 Update a plan.
 
@@ -73,38 +73,38 @@ Update a plan.
 memberstack plans update <id> [options]
 ```
 
-Arguments [#arguments-1]
+### Arguments
 
 | Argument | Description |
-| -------- | ----------- |
-| `id`     | Plan ID     |
+|---|---|
+| `id` | Plan ID |
 
-Options [#options-2]
+### Options
 
-| Option                                    | Description                                                                                                                                             |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--name <name>`                           | Plan name                                                                                                                                               |
-| `--description <description>`             | Plan description                                                                                                                                        |
-| `--icon <icon>`                           | Plan icon                                                                                                                                               |
-| `--status <status>`                       | Plan status: `ACTIVE`, `INACTIVE`                                                                                                                       |
-| `--limit-members`                         | Enable member limit                                                                                                                                     |
-| `--no-limit-members`                      | Disable member limit                                                                                                                                    |
-| `--member-limit <number>`                 | Maximum number of members                                                                                                                               |
-| `--team-account-upgrade-link <url>`       | Team account upgrade link                                                                                                                               |
-| `--team-account-invite-signup-link <url>` | Team account invite signup link                                                                                                                         |
-| `--restrict-to-admin`                     | Restrict plan to admin                                                                                                                                  |
-| `--no-restrict-to-admin`                  | Remove admin restriction                                                                                                                                |
-| `--redirect <key=url>`                    | Set redirect URL (repeatable). Keys: `afterSignup`, `afterLogin`, `afterLogout`, `afterPurchase`, `afterCancel`, `afterReplace`, `verificationRequired` |
-| `--permission-id <id>`                    | Permission ID (repeatable; replaces all permissions)                                                                                                    |
-| `--allowed-domain <email>`                | Allowed email domain (repeatable; replaces all domains)                                                                                                 |
+| Option | Description |
+|---|---|
+| `--name <name>` | Plan name |
+| `--description <description>` | Plan description |
+| `--icon <icon>` | Plan icon |
+| `--status <status>` | Plan status: `ACTIVE`, `INACTIVE` |
+| `--limit-members` | Enable member limit |
+| `--no-limit-members` | Disable member limit |
+| `--member-limit <number>` | Maximum number of members |
+| `--team-account-upgrade-link <url>` | Team account upgrade link |
+| `--team-account-invite-signup-link <url>` | Team account invite signup link |
+| `--restrict-to-admin` | Restrict plan to admin |
+| `--no-restrict-to-admin` | Remove admin restriction |
+| `--redirect <key=url>` | Set redirect URL (repeatable). Keys: `afterSignup`, `afterLogin`, `afterLogout`, `afterPurchase`, `afterCancel`, `afterReplace`, `verificationRequired` |
+| `--permission-id <id>` | Permission ID (repeatable; replaces all permissions) |
+| `--allowed-domain <email>` | Allowed email domain (repeatable; replaces all domains) |
 
-Example [#example-1]
+### Example
 
 ```bash
 memberstack plans update pln_abc123 --status ACTIVE --restrict-to-admin
 ```
 
-plans delete [#plans-delete]
+## plans delete
 
 Delete a plan.
 
@@ -112,13 +112,13 @@ Delete a plan.
 memberstack plans delete <id>
 ```
 
-Arguments [#arguments-2]
+### Arguments
 
 | Argument | Description |
-| -------- | ----------- |
-| `id`     | Plan ID     |
+|---|---|
+| `id` | Plan ID |
 
-plans order [#plans-order]
+## plans order
 
 Reorder plans by priority.
 
@@ -126,14 +126,25 @@ Reorder plans by priority.
 memberstack plans order --plan <planId:priority> [--plan <planId:priority> ...]
 ```
 
-Options [#options-3]
+### Options
 
-| Option                     | Description                                                       |
-| -------------------------- | ----------------------------------------------------------------- |
+| Option | Description |
+|---|---|
 | `--plan <planId:priority>` | Plan ID and priority (repeatable), for example `--plan pln_abc:1` |
 
-Example [#example-2]
+### Example
 
 ```bash
 memberstack plans order --plan pln_basic:1 --plan pln_pro:2 --plan pln_enterprise:3
 ```
+
+## FAQ
+
+Q: How do I create a paid plan?
+A: Run memberstack plans create --name "Pro" --is-paid to create a paid plan. You can also set a description and icon during creation. Pricing and billing details are configured in the Memberstack dashboard.
+
+Q: Can I reorder plans?
+A: Yes. Use memberstack plans order with --plan flags to set priority for each plan. For example, --plan pln_basic:1 --plan pln_pro:2 --plan pln_enterprise:3 sets the display order.
+
+Q: How do I restrict a plan to admin-only access?
+A: Use memberstack plans update with the --restrict-to-admin flag. This prevents members from self-selecting the plan. Remove the restriction with --no-restrict-to-admin.
